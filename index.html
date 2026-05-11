@@ -1,185 +1,143 @@
-<!doctype html>
-<html lang="es-AR">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SIN RECREO · Personalizador de remeras</title>
-  <meta name="description" content="Experiencia de personalización de remeras SIN RECREO." />
-
-  <!-- Tipografías sugeridas para la estética SIN RECREO -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Montserrat:wght@500;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="css/personalizador.css" />
-</head>
-
-<body>
-  <header class="demo-header">
-    <div class="demo-brand">
-      <span class="demo-logo">SIN RECREO</span>
-      <span class="demo-subtitle">Remeras de concepto</span>
-    </div>
-
-    <button class="demo-open-btn" type="button" data-sr-open-personalizer>
-      Personalizar remera
-    </button>
-  </header>
-
-  <main class="demo-main">
-    <section class="demo-hero">
-      <p class="demo-kicker">Nueva experiencia</p>
-      <h1>Armá tu remera SIN RECREO paso a paso.</h1>
-      <p>
-        Elegí estampa, corte, talle, color, tamaño de impresión, entrega y forma de pago.
-        La vista previa se actualiza mientras avanzás.
-      </p>
-
-      <div class="demo-actions">
-        <button class="demo-primary" type="button" data-sr-open-personalizer>
-          Empezar personalización
-        </button>
-      </div>
-    </section>
-
-    <section class="demo-note">
-      <h2>Listo para conectar con tu tienda</h2>
-      <p>
-        Este archivo funciona solo. Después podés reemplazar el catálogo demo por tus productos reales,
-        fotos de modelo y conexión con carrito, WhatsApp, Supabase, Mercado Pago o PUDO.
-      </p>
-    </section>
-  </main>
-
-  <!-- =========================================================
-    SIN RECREO · MODAL PERSONALIZADOR DE REMERAS
-
-    Uso desde cualquier botón:
-    <button data-sr-open-personalizer>Personalizar</button>
-
-    Uso desde un producto puntual:
-    window.SinRecreoPersonalizador.open(producto)
-
-    Conectar al carrito:
-    window.SinRecreoPersonalizador.onComplete = function(item){
-      console.log('Agregar al carrito:', item)
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SIN RECREO — Demo de integración</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0e0e0e;
+      font-family: 'DM Sans', sans-serif;
+      color: #f5f0e8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
     }
-  ========================================================= -->
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      letter-spacing: 6px;
+    }
+    h1 span { color: #d4a843; }
+    p { color: rgba(245,240,232,0.5); font-size: 14px; letter-spacing: .5px; }
 
-  <div class="srp-modal" id="srpModal" aria-hidden="true">
-    <div class="srp-backdrop" data-srp-close></div>
+    .open-btn {
+      background: #d4a843;
+      color: #0e0e0e;
+      border: none;
+      padding: 14px 36px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: filter .2s;
+    }
+    .open-btn:hover { filter: brightness(1.1); }
 
-    <section class="srp-shell" role="dialog" aria-modal="true" aria-labelledby="srpTitle">
-      <button class="srp-close" type="button" data-srp-close aria-label="Cerrar personalizador">×</button>
+    /* ---- OVERLAY MODAL ---- */
+    #srModalOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    #srModalOverlay.open { display: flex; }
 
-      <div class="srp-header">
-        <div>
-          <p class="srp-kicker">SIN RECREO · EXPERIENCIA PERSONALIZADA</p>
-          <h2 id="srpTitle">Armá tu remera</h2>
-        </div>
-        <div class="srp-progress-pill">
-          <span id="srpStepCounter">1/7</span>
-        </div>
-      </div>
+    .sr-modal-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 820px;
+    }
 
-      <div class="srp-progress" aria-hidden="true">
-        <div class="srp-progress-bar" id="srpProgressBar"></div>
-      </div>
+    .sr-close-btn {
+      position: absolute;
+      top: -36px;
+      right: 0;
+      background: none;
+      border: none;
+      color: rgba(245,240,232,0.6);
+      font-size: 14px;
+      cursor: pointer;
+      letter-spacing: 1px;
+      font-family: 'DM Sans', sans-serif;
+      transition: color .2s;
+    }
+    .sr-close-btn:hover { color: #f5f0e8; }
 
-      <div class="srp-body">
-        <aside class="srp-preview-panel">
-          <div class="srp-preview-card">
-            <p class="srp-preview-label">Vista previa</p>
+    .sr-modal-wrapper iframe {
+      width: 100%;
+      height: 700px;
+      border: none;
+      display: block;
+    }
 
-            <div class="srp-model-stage" id="srpModelStage">
-              <img class="srp-model-img" id="srpModelImage" alt="Vista previa de la remera personalizada" hidden>
+    /* Responsive */
+    @media (max-width: 600px) {
+      .sr-modal-wrapper iframe { height: 90vh; }
+    }
+  </style>
+</head>
+<body>
 
-              <div class="srp-fallback-model" id="srpFallbackModel" aria-hidden="true">
-                <div class="srp-head"></div>
-                <div class="srp-neck"></div>
-                <div class="srp-shirt" id="srpFallbackShirt">
-                  <div class="srp-sleeve srp-sleeve-left"></div>
-                  <div class="srp-sleeve srp-sleeve-right"></div>
-                  <div class="srp-print-zone" id="srpPrintZone">
-                    <img id="srpPrintImage" alt="Estampa elegida" hidden>
-                    <span id="srpPrintText">SIN<br>RECREO</span>
-                  </div>
-                </div>
-                <div class="srp-legs"></div>
-              </div>
-            </div>
+  <h1>SIN <span>RECREO</span></h1>
+  <p>Hacé tu remera única.</p>
 
-            <div class="srp-mini-summary">
-              <strong id="srpPreviewTitle">Elegí una estampa</strong>
-              <span id="srpPreviewMeta">Corte · Talle · Color · Estampa</span>
-            </div>
-          </div>
+  <button class="open-btn" onclick="openPersonalizador()">
+    PERSONALIZÁ TU REMERA
+  </button>
 
-          <div class="srp-price-card">
-            <span>Total estimado</span>
-            <strong id="srpTotal">$0</strong>
-            <small id="srpPriceNote">El precio se actualiza con cada elección.</small>
-          </div>
-        </aside>
-
-        <main class="srp-step-panel">
-          <div class="srp-step-copy">
-            <p class="srp-step-eyebrow" id="srpStepEyebrow">Paso 1</p>
-            <h3 id="srpStepTitle">Elegí una estampa del catálogo</h3>
-            <p id="srpStepHelp">Seleccioná la imagen que querés llevar en tu remera.</p>
-          </div>
-
-          <div class="srp-options" id="srpOptions"></div>
-
-          <div class="srp-selected-summary" id="srpSelectedSummary"></div>
-
-          <footer class="srp-actions">
-            <button class="srp-btn srp-btn-ghost" type="button" id="srpBackBtn">Atrás</button>
-            <button class="srp-btn srp-btn-main" type="button" id="srpNextBtn">Siguiente</button>
-          </footer>
-        </main>
-      </div>
-    </section>
+  <!-- MODAL -->
+  <div id="srModalOverlay">
+    <div class="sr-modal-wrapper">
+      <button class="sr-close-btn" onclick="closePersonalizador()">✕ cerrar</button>
+      <iframe id="srIframe" src="" title="Personalizador de remeras SIN RECREO"></iframe>
+    </div>
   </div>
 
-  <script src="js/personalizador.js"></script>
-
   <script>
-    /*
-      EJEMPLO DE CONEXIÓN FINAL.
-      Cuando el cliente termina, acá recibís el objeto completo del pedido.
-      Después esto se puede reemplazar por tu función real de carrito.
-    */
-    window.SinRecreoPersonalizador.onComplete = function(item){
-      console.log('SIN RECREO · agregar al carrito:', item);
-
-      const texto = [
-        '🖤 SIN RECREO · Remera personalizada',
-        '',
-        '*Estampa:* ' + item.product_title,
-        '*Corte:* ' + item.corte,
-        '*Talle:* ' + item.talle,
-        '*Color:* ' + item.color_label,
-        '*Tamaño de estampa:* ' + item.print_size_label,
-        '*Entrega:* ' + item.shipping_label,
-        '*Pago:* ' + item.payment_label,
-        '*Total estimado:* $' + item.price.toLocaleString('es-AR'),
-        '',
-        '_Quiero avanzar con este pedido._'
-      ].join('\n');
-
-      const whatsapp = 'https://wa.me/?text=' + encodeURIComponent(texto);
-
-      const aceptar = confirm(
-        'Remera personalizada lista.\\n\\n' +
-        'Total estimado: $' + item.price.toLocaleString('es-AR') + '\\n\\n' +
-        'Aceptar para enviar el pedido por WhatsApp.'
-      );
-
-      if(aceptar){
-        window.open(whatsapp, '_blank');
+    function openPersonalizador() {
+      const overlay = document.getElementById('srModalOverlay');
+      const iframe  = document.getElementById('srIframe');
+      // Carga el iframe solo cuando se abre (mejor performance)
+      if (!iframe.src || iframe.src === window.location.href) {
+        iframe.src = 'personalizador.html';
       }
-    };
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePersonalizador() {
+      document.getElementById('srModalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Cerrar con Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closePersonalizador();
+    });
+
+    // Cerrar al hacer click fuera del modal
+    document.getElementById('srModalOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closePersonalizador();
+    });
+
+    // Escuchar evento del carrito desde el iframe
+    window.addEventListener('srAddToCart', function(e) {
+      console.log('Producto agregado al carrito:', e.detail);
+      closePersonalizador();
+      // Aquí podés actualizar tu UI de carrito, hacer un fetch, etc.
+    });
   </script>
+
 </body>
 </html>

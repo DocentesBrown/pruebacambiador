@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personalizador — SIN RECREO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="personalizador.css"/>
+</head>
+<body>
+  <div class="sr-overlay">
+    <div class="sr-modal">
+      <div class="sr-header">
+        <div class="sr-logo">SIN <span>RECREO</span></div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <span class="sr-step-counter" id="stepCounter">PASO 1 DE 7</span>
+          <div class="sr-step-indicator" id="dots"></div>
+        </div>
+      </div>
+
+      <div class="sr-body">
+        <div class="sr-preview">
+          <div class="sr-preview-label">Tu Remera</div>
+          <div class="sr-tshirt-wrap">
+            <svg class="sr-tshirt-svg" viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="sh"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.4"/></filter>
+              </defs>
+              <path id="shirt-path"
+                d="M55 30 L20 60 L38 70 L30 160 H150 L142 70 L160 60 L125 30 C115 44 65 44 55 30Z"
+                fill="#2a2a2a" stroke="rgba(212,168,67,0.3)" stroke-width="1" filter="url(#sh)"/>
+              <path id="collar" d="M80 30 Q90 48 100 30" fill="none" stroke="rgba(212,168,67,0.5)" stroke-width="1.5"/>
+            </svg>
+            <div class="sr-stamp-preview" id="stampPreview">
+              <span class="emoji" id="stampEmoji"></span>
+            </div>
+          </div>
+          <div class="sr-summary" id="summary"></div>
+        </div>
+
+        <div class="sr-content">
+
+          <!-- PASO 1: Estampa -->
+          <div class="sr-step visible" id="step1">
+            <div class="sr-step-title">Elegí tu estampa</div>
+            <div class="sr-step-sub">Seleccioná el diseño que más te identifica</div>
+            <div class="sr-grid" id="stamps-grid"></div>
+          </div>
+
+          <!-- PASO 2: Corte -->
+          <div class="sr-step" id="step2">
+            <div class="sr-step-title">Elegí el corte</div>
+            <div class="sr-step-sub">¿Cómo querés que te quede?</div>
+            <div class="sr-grid two" id="corte-grid"></div>
+          </div>
+
+          <!-- PASO 3: Talle -->
+          <div class="sr-step" id="step3">
+            <div class="sr-step-title">Elegí tu talle</div>
+            <div class="sr-step-sub">Medidas según la tabla de talles SIN RECREO</div>
+            <div class="sr-talle-grid" id="talle-grid"></div>
+            <div class="sr-tabla-link">
+              ¿Dudas? <span onclick="toggleTabla()">Ver tabla de talles →</span>
+            </div>
+            <div class="sr-tabla" id="tabla" style="display:none">
+              <table>
+                <thead><tr><th>Talle</th><th>Hombros</th><th>Pecho</th><th>Largo</th></tr></thead>
+                <tbody>
+                  <tr><td>XS</td><td>38 cm</td><td>86 cm</td><td>60 cm</td></tr>
+                  <tr><td>S</td><td>40 cm</td><td>92 cm</td><td>63 cm</td></tr>
+                  <tr><td>M</td><td>43 cm</td><td>98 cm</td><td>66 cm</td></tr>
+                  <tr><td>L</td><td>46 cm</td><td>104 cm</td><td>69 cm</td></tr>
+                  <tr><td>XL</td><td>49 cm</td><td>110 cm</td><td>72 cm</td></tr>
+                  <tr><td>XXL</td><td>52 cm</td><td>116 cm</td><td>75 cm</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- PASO 4: Color -->
+          <div class="sr-step" id="step4">
+            <div class="sr-step-title">Elegí el color</div>
+            <div class="sr-step-sub">Remeras 100% algodón premium</div>
+            <div class="sr-color-row" id="color-grid"></div>
+          </div>
+
+          <!-- PASO 5: Tamaño estampa -->
+          <div class="sr-step" id="step5">
+            <div class="sr-step-title">Tamaño de la estampa</div>
+            <div class="sr-step-sub">¿Qué tanto querés que se note?</div>
+            <div class="sr-size-row" id="size-grid"></div>
+          </div>
+
+          <!-- PASO 6: Envío -->
+          <div class="sr-step" id="step6">
+            <div class="sr-step-title">¿Cómo lo recibís?</div>
+            <div class="sr-step-sub">Seleccioná tu método preferido</div>
+            <div class="sr-pago-grid" id="envio-grid"></div>
+          </div>
+
+          <!-- PASO 7: Pago -->
+          <div class="sr-step" id="step7">
+            <div class="sr-step-title">Forma de pago</div>
+            <div class="sr-step-sub">¿Cómo preferís abonar?</div>
+            <div class="sr-pago-grid" id="pago-grid"></div>
+          </div>
+
+          <!-- CONFIRMACIÓN -->
+          <div class="sr-step" id="step8">
+            <div class="sr-confirm">
+              <div class="sr-confirm-icon">🎉</div>
+              <div class="sr-confirm-title">¡Pedido listo!</div>
+              <div class="sr-confirm-sub">Tu remera personalizada fue enviada al carrito. Te llegará un resumen por WhatsApp.</div>
+              <div class="sr-confirm-code" id="orderCode"></div>
+              <button class="sr-btn sr-btn-next" style="margin-top:.5rem" onclick="addToCart()">Agregar al carrito</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="sr-footer">
+        <button class="sr-btn sr-btn-back" id="btnBack" onclick="goBack()">← Atrás</button>
+        <button class="sr-btn sr-btn-next" id="btnNext" onclick="goNext()">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="personalizador.js"></script>
+</body>
+</html>
