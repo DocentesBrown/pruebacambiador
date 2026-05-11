@@ -1,0 +1,3 @@
+1. Sube estos 3 archivos a tu servidor o carpeta del proyecto.
+2. Asegúrate de que el archivo index.html esté en la misma carpeta que style.css y script.js.
+3. Puedes personalizar las imágenes en el código HTML (donde dice placeholder) por tus fotos reales.

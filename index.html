@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalizador SIN RECREO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Botón disparador (Puedes ponerlo donde quieras en tu web) -->
+    <div style="text-align: center; margin-top: 50px;">
+        <button id="openModalBtn" class="btn-main">Personalizar mi Remera</button>
+    </div>
+
+    <!-- El Modal -->
+    <div id="customizerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            
+            <div class="container">
+                <!-- Lado Izquierdo: Previsualización -->
+                <div class="preview-panel">
+                    <div class="image-container">
+                        <!-- Imagen base de la remera -->
+                        <img id="shirtBase" src="https://via.placeholder.com/400x500?text=Cargando+Modelo" alt="Remera">
+                        <!-- Capa de la estampa (posicionada encima) -->
+                        <img id="printOverlay" src="" alt="" style="display:none;">
+                    </div>
+                    <div id="selectionSummary" class="summary-box">
+                        <p><strong>Tu selección:</strong></p>
+                        <ul id="summaryList">
+                            <li>Estampa: -</li>
+                            <li>Corte: -</li>
+                            <li>Talle: -</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Lado Derecho: Formulario por Pasos -->
+                <div class="form-panel">
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+
+                    <form id="customForm">
+                        <!-- PASO 1 -->
+                        <div class="step active" data-step="1">
+                            <h2>1. Elegí tu estampa</h2>
+                            <p>Seleccioná el diseño del catálogo:</p>
+                            <div class="options-grid">
+                                <label class="card-option">
+                                    <input type="radio" name="print" value="Estampa Clásica" data-img="https://via.placeholder.com/150/000/fff?text=Estampa1">
+                                    <img src="https://via.placeholder.com/80?text=E1" alt="E1">
+                                    <span>Clásica</span>
+                                </label>
+                                <label class="card-option">
+                                    <input type="radio" name="print" value="Estampa Retro" data-img="https://via.placeholder.com/150/f00/fff?text=Estampa2">
+                                    <img src="https://via.placeholder.com/80?text=E2" alt="E2">
+                                    <span>Retro</span>
+                                </label>
+                                <label class="card-option">
+                                    <input type="radio" name="print" value="Estampa Minimal" data-img="https://via.placeholder.com/150/00f/fff?text=Estampa3">
+                                    <img src="https://via.placeholder.com/80?text=E3" alt="E3">
+                                    <span>Minimal</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- PASO 2 -->
+                        <div class="step" data-step="2">
+                            <h2>2. Elegí el corte</h2>
+                            <div class="options-vertical">
+                                <label class="radio-label">
+                                    <input type="radio" name="cut" value="Femenino"> Femenino
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="cut" value="Unisex"> Unisex
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- PASO 3 -->
+                        <div class="step" data-step="3">
+                            <h2>3. Elegí el talle</h2>
+                            <select name="size" class="custom-select">
+                                <option value="" disabled selected>Seleccioná un talle</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                        </div>
+
+                        <!-- PASO 4 -->
+                        <div class="step" data-step="4">
+                            <h2>4. Color de la remera</h2>
+                            <div class="options-grid colors">
+                                <label class="color-circle" style="background-color: #fff;" title="Blanco">
+                                    <input type="radio" name="color" value="Blanco">
+                                </label>
+                                <label class="color-circle" style="background-color: #000;" title="Negro">
+                                    <input type="radio" name="color" value="Negro">
+                                </label>
+                                <label class="color-circle" style="background-color: #24496e;" title="Azul">
+                                    <input type="radio" name="color" value="Azul">
+                                </label>
+                                <label class="color-circle" style="background-color: #808080;" title="Gris">
+                                    <input type="radio" name="color" value="Gris">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- PASO 5 -->
+                        <div class="step" data-step="5">
+                            <h2>5. Tamaño de estampa</h2>
+                            <div class="options-vertical">
+                                <label class="radio-label">
+                                    <input type="radio" name="printSize" value="Bolsillo (Chica)"> Bolsillo (Chica)
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="printSize" value="Centrada (Grande)"> Centrada (Grande)
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- PASO 6 -->
+                        <div class="step" data-step="6">
+                            <h2>6. Método de entrega</h2>
+                            <div class="options-vertical">
+                                <label class="radio-label">
+                                    <input type="radio" name="shipping" value="Envío a domicilio"> Envío a domicilio
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="shipping" value="Retiro por local"> Retiro por local
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- PASO 7 -->
+                        <div class="step" data-step="7">
+                            <h2>7. Forma de pago</h2>
+                            <div class="options-vertical">
+                                <label class="radio-label">
+                                    <input type="radio" name="payment" value="Transferencia (10% OFF)"> Transferencia (10% OFF)
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="payment" value="Mercado Pago"> Mercado Pago
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Navegación -->
+                        <div class="nav-actions">
+                            <button type="button" id="prevBtn" class="btn-secondary">Anterior</button>
+                            <button type="button" id="nextBtn" class="btn-primary">Siguiente</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
