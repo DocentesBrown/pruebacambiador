@@ -1,167 +1,185 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="es-AR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personalizador SIN RECREO</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SIN RECREO · Personalizador de remeras</title>
+  <meta name="description" content="Experiencia de personalización de remeras SIN RECREO." />
+
+  <!-- Tipografías sugeridas para la estética SIN RECREO -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Montserrat:wght@500;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/personalizador.css" />
 </head>
+
 <body>
-
-    <!-- Botón disparador (Puedes ponerlo donde quieras en tu web) -->
-    <div style="text-align: center; margin-top: 50px;">
-        <button id="openModalBtn" class="btn-main">Personalizar mi Remera</button>
+  <header class="demo-header">
+    <div class="demo-brand">
+      <span class="demo-logo">SIN RECREO</span>
+      <span class="demo-subtitle">Remeras de concepto</span>
     </div>
 
-    <!-- El Modal -->
-    <div id="customizerModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            
-            <div class="container">
-                <!-- Lado Izquierdo: Previsualización -->
-                <div class="preview-panel">
-                    <div class="image-container">
-                        <!-- Imagen base de la remera -->
-                        <img id="shirtBase" src="https://via.placeholder.com/400x500?text=Cargando+Modelo" alt="Remera">
-                        <!-- Capa de la estampa (posicionada encima) -->
-                        <img id="printOverlay" src="" alt="" style="display:none;">
-                    </div>
-                    <div id="selectionSummary" class="summary-box">
-                        <p><strong>Tu selección:</strong></p>
-                        <ul id="summaryList">
-                            <li>Estampa: -</li>
-                            <li>Corte: -</li>
-                            <li>Talle: -</li>
-                        </ul>
-                    </div>
-                </div>
+    <button class="demo-open-btn" type="button" data-sr-open-personalizer>
+      Personalizar remera
+    </button>
+  </header>
 
-                <!-- Lado Derecho: Formulario por Pasos -->
-                <div class="form-panel">
-                    <div class="progress-container">
-                        <div class="progress-bar" id="progressBar"></div>
-                    </div>
+  <main class="demo-main">
+    <section class="demo-hero">
+      <p class="demo-kicker">Nueva experiencia</p>
+      <h1>Armá tu remera SIN RECREO paso a paso.</h1>
+      <p>
+        Elegí estampa, corte, talle, color, tamaño de impresión, entrega y forma de pago.
+        La vista previa se actualiza mientras avanzás.
+      </p>
 
-                    <form id="customForm">
-                        <!-- PASO 1 -->
-                        <div class="step active" data-step="1">
-                            <h2>1. Elegí tu estampa</h2>
-                            <p>Seleccioná el diseño del catálogo:</p>
-                            <div class="options-grid">
-                                <label class="card-option">
-                                    <input type="radio" name="print" value="Estampa Clásica" data-img="https://via.placeholder.com/150/000/fff?text=Estampa1">
-                                    <img src="https://via.placeholder.com/80?text=E1" alt="E1">
-                                    <span>Clásica</span>
-                                </label>
-                                <label class="card-option">
-                                    <input type="radio" name="print" value="Estampa Retro" data-img="https://via.placeholder.com/150/f00/fff?text=Estampa2">
-                                    <img src="https://via.placeholder.com/80?text=E2" alt="E2">
-                                    <span>Retro</span>
-                                </label>
-                                <label class="card-option">
-                                    <input type="radio" name="print" value="Estampa Minimal" data-img="https://via.placeholder.com/150/00f/fff?text=Estampa3">
-                                    <img src="https://via.placeholder.com/80?text=E3" alt="E3">
-                                    <span>Minimal</span>
-                                </label>
-                            </div>
-                        </div>
+      <div class="demo-actions">
+        <button class="demo-primary" type="button" data-sr-open-personalizer>
+          Empezar personalización
+        </button>
+      </div>
+    </section>
 
-                        <!-- PASO 2 -->
-                        <div class="step" data-step="2">
-                            <h2>2. Elegí el corte</h2>
-                            <div class="options-vertical">
-                                <label class="radio-label">
-                                    <input type="radio" name="cut" value="Femenino"> Femenino
-                                </label>
-                                <label class="radio-label">
-                                    <input type="radio" name="cut" value="Unisex"> Unisex
-                                </label>
-                            </div>
-                        </div>
+    <section class="demo-note">
+      <h2>Listo para conectar con tu tienda</h2>
+      <p>
+        Este archivo funciona solo. Después podés reemplazar el catálogo demo por tus productos reales,
+        fotos de modelo y conexión con carrito, WhatsApp, Supabase, Mercado Pago o PUDO.
+      </p>
+    </section>
+  </main>
 
-                        <!-- PASO 3 -->
-                        <div class="step" data-step="3">
-                            <h2>3. Elegí el talle</h2>
-                            <select name="size" class="custom-select">
-                                <option value="" disabled selected>Seleccioná un talle</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                            </select>
-                        </div>
+  <!-- =========================================================
+    SIN RECREO · MODAL PERSONALIZADOR DE REMERAS
 
-                        <!-- PASO 4 -->
-                        <div class="step" data-step="4">
-                            <h2>4. Color de la remera</h2>
-                            <div class="options-grid colors">
-                                <label class="color-circle" style="background-color: #fff;" title="Blanco">
-                                    <input type="radio" name="color" value="Blanco">
-                                </label>
-                                <label class="color-circle" style="background-color: #000;" title="Negro">
-                                    <input type="radio" name="color" value="Negro">
-                                </label>
-                                <label class="color-circle" style="background-color: #24496e;" title="Azul">
-                                    <input type="radio" name="color" value="Azul">
-                                </label>
-                                <label class="color-circle" style="background-color: #808080;" title="Gris">
-                                    <input type="radio" name="color" value="Gris">
-                                </label>
-                            </div>
-                        </div>
+    Uso desde cualquier botón:
+    <button data-sr-open-personalizer>Personalizar</button>
 
-                        <!-- PASO 5 -->
-                        <div class="step" data-step="5">
-                            <h2>5. Tamaño de estampa</h2>
-                            <div class="options-vertical">
-                                <label class="radio-label">
-                                    <input type="radio" name="printSize" value="Bolsillo (Chica)"> Bolsillo (Chica)
-                                </label>
-                                <label class="radio-label">
-                                    <input type="radio" name="printSize" value="Centrada (Grande)"> Centrada (Grande)
-                                </label>
-                            </div>
-                        </div>
+    Uso desde un producto puntual:
+    window.SinRecreoPersonalizador.open(producto)
 
-                        <!-- PASO 6 -->
-                        <div class="step" data-step="6">
-                            <h2>6. Método de entrega</h2>
-                            <div class="options-vertical">
-                                <label class="radio-label">
-                                    <input type="radio" name="shipping" value="Envío a domicilio"> Envío a domicilio
-                                </label>
-                                <label class="radio-label">
-                                    <input type="radio" name="shipping" value="Retiro por local"> Retiro por local
-                                </label>
-                            </div>
-                        </div>
+    Conectar al carrito:
+    window.SinRecreoPersonalizador.onComplete = function(item){
+      console.log('Agregar al carrito:', item)
+    }
+  ========================================================= -->
 
-                        <!-- PASO 7 -->
-                        <div class="step" data-step="7">
-                            <h2>7. Forma de pago</h2>
-                            <div class="options-vertical">
-                                <label class="radio-label">
-                                    <input type="radio" name="payment" value="Transferencia (10% OFF)"> Transferencia (10% OFF)
-                                </label>
-                                <label class="radio-label">
-                                    <input type="radio" name="payment" value="Mercado Pago"> Mercado Pago
-                                </label>
-                            </div>
-                        </div>
+  <div class="srp-modal" id="srpModal" aria-hidden="true">
+    <div class="srp-backdrop" data-srp-close></div>
 
-                        <!-- Navegación -->
-                        <div class="nav-actions">
-                            <button type="button" id="prevBtn" class="btn-secondary">Anterior</button>
-                            <button type="button" id="nextBtn" class="btn-primary">Siguiente</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <section class="srp-shell" role="dialog" aria-modal="true" aria-labelledby="srpTitle">
+      <button class="srp-close" type="button" data-srp-close aria-label="Cerrar personalizador">×</button>
+
+      <div class="srp-header">
+        <div>
+          <p class="srp-kicker">SIN RECREO · EXPERIENCIA PERSONALIZADA</p>
+          <h2 id="srpTitle">Armá tu remera</h2>
         </div>
-    </div>
+        <div class="srp-progress-pill">
+          <span id="srpStepCounter">1/7</span>
+        </div>
+      </div>
 
-    <script src="script.js"></script>
+      <div class="srp-progress" aria-hidden="true">
+        <div class="srp-progress-bar" id="srpProgressBar"></div>
+      </div>
+
+      <div class="srp-body">
+        <aside class="srp-preview-panel">
+          <div class="srp-preview-card">
+            <p class="srp-preview-label">Vista previa</p>
+
+            <div class="srp-model-stage" id="srpModelStage">
+              <img class="srp-model-img" id="srpModelImage" alt="Vista previa de la remera personalizada" hidden>
+
+              <div class="srp-fallback-model" id="srpFallbackModel" aria-hidden="true">
+                <div class="srp-head"></div>
+                <div class="srp-neck"></div>
+                <div class="srp-shirt" id="srpFallbackShirt">
+                  <div class="srp-sleeve srp-sleeve-left"></div>
+                  <div class="srp-sleeve srp-sleeve-right"></div>
+                  <div class="srp-print-zone" id="srpPrintZone">
+                    <img id="srpPrintImage" alt="Estampa elegida" hidden>
+                    <span id="srpPrintText">SIN<br>RECREO</span>
+                  </div>
+                </div>
+                <div class="srp-legs"></div>
+              </div>
+            </div>
+
+            <div class="srp-mini-summary">
+              <strong id="srpPreviewTitle">Elegí una estampa</strong>
+              <span id="srpPreviewMeta">Corte · Talle · Color · Estampa</span>
+            </div>
+          </div>
+
+          <div class="srp-price-card">
+            <span>Total estimado</span>
+            <strong id="srpTotal">$0</strong>
+            <small id="srpPriceNote">El precio se actualiza con cada elección.</small>
+          </div>
+        </aside>
+
+        <main class="srp-step-panel">
+          <div class="srp-step-copy">
+            <p class="srp-step-eyebrow" id="srpStepEyebrow">Paso 1</p>
+            <h3 id="srpStepTitle">Elegí una estampa del catálogo</h3>
+            <p id="srpStepHelp">Seleccioná la imagen que querés llevar en tu remera.</p>
+          </div>
+
+          <div class="srp-options" id="srpOptions"></div>
+
+          <div class="srp-selected-summary" id="srpSelectedSummary"></div>
+
+          <footer class="srp-actions">
+            <button class="srp-btn srp-btn-ghost" type="button" id="srpBackBtn">Atrás</button>
+            <button class="srp-btn srp-btn-main" type="button" id="srpNextBtn">Siguiente</button>
+          </footer>
+        </main>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/personalizador.js"></script>
+
+  <script>
+    /*
+      EJEMPLO DE CONEXIÓN FINAL.
+      Cuando el cliente termina, acá recibís el objeto completo del pedido.
+      Después esto se puede reemplazar por tu función real de carrito.
+    */
+    window.SinRecreoPersonalizador.onComplete = function(item){
+      console.log('SIN RECREO · agregar al carrito:', item);
+
+      const texto = [
+        '🖤 SIN RECREO · Remera personalizada',
+        '',
+        '*Estampa:* ' + item.product_title,
+        '*Corte:* ' + item.corte,
+        '*Talle:* ' + item.talle,
+        '*Color:* ' + item.color_label,
+        '*Tamaño de estampa:* ' + item.print_size_label,
+        '*Entrega:* ' + item.shipping_label,
+        '*Pago:* ' + item.payment_label,
+        '*Total estimado:* $' + item.price.toLocaleString('es-AR'),
+        '',
+        '_Quiero avanzar con este pedido._'
+      ].join('\n');
+
+      const whatsapp = 'https://wa.me/?text=' + encodeURIComponent(texto);
+
+      const aceptar = confirm(
+        'Remera personalizada lista.\\n\\n' +
+        'Total estimado: $' + item.price.toLocaleString('es-AR') + '\\n\\n' +
+        'Aceptar para enviar el pedido por WhatsApp.'
+      );
+
+      if(aceptar){
+        window.open(whatsapp, '_blank');
+      }
+    };
+  </script>
 </body>
 </html>
